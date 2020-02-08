@@ -1,14 +1,21 @@
-# Example run = Bellerophon
+# Bellerophon test run
+
+You can download the example data for
+running Bellerophon from https://www.pmgenomics.ca/hoffmanlab/proj/bellerophon/bellerophon-data-v1.tar.gz .
+
+
 
 ```
-usage: Bellerophon identifies viral integration sites.
-       The script requires a host reference genome index,
-       a viral reference genome index, and the fastq file(s)
-       of the experiment to identify the exact integration sites.
-       Bellerophon uses bowtie2.Make sure you have generated genome
-       indices using bowtie2-build and bowtie2 exists in $PATH.
-       You can use bwa instead of bowtie2 as well.
-
+usage: Identify viral integration sites in FASTQ files.
+        Requires a host reference genome index,
+        a viral reference genome index, and the FASTQ file(s)
+        of the experiment to identify the exact
+        integration sites.
+        Make sure you have generated genome indices for
+        both the host and virus genomes.
+        You can use bwa instead of bowtie2 as well.
+        Make sure the aligner (bowtie2 or bwa), samtools,
+        and bedtools also exist in $PATH.
        [-h] [--fastq [FASTQ [FASTQ ...]]] [--outdir OUTDIR]
        [--aligner {bwa,bowtie2}]
        hostindex viralindex
@@ -25,6 +32,11 @@ optional arguments:
   --outdir OUTDIR       Path to output folder
   --aligner {bwa,bowtie2}
                         Choose from bwa or bowtie2 (default)
+
+Citation: Karimzadeh M., Arlidge C., Rostami A., Lupien M., Bratman S., and
+Hoffman M. M. Integration of human papillomavirus into the human genome
+promotes cancer by modifying local chromatin and transcription.
+
 
 VIRALINDEX=../data/hpv16/hpv16_bowt_ind
 HOSTINDEX=../data/hg38/hg38_bwt2_index

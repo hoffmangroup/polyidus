@@ -59,16 +59,22 @@ def check_aligner(aligner):
 
 if __name__ == "__main__":
     parser = ArgumentParser(
-        "Bellerophon identifies viral integration sites."
-        "The script requires a host reference genome index, "
-        "a viral reference genome index, and the fastq file(s) "
-        "of the experiment to identify the exact "
-        "integration sites. Bellerophon uses bowtie2."
-        "Make sure you have generated genome indices using "
-        "bowtie2-build and bowtie2 exists in $PATH. "
-        "You can use bwa instead of bowtie2 as well. "
-        "Make sure samtools and bedtools also exist "
-        "in $PATH.")
+        '''Identify viral integration sites in FASTQ files.
+        Requires a host reference genome index,
+        a viral reference genome index, and the FASTQ file(s)
+        of the experiment to identify the exact
+        integration sites.
+        Make sure you have generated genome indices for
+        both the host and virus genomes.
+        You can use bwa instead of bowtie2 as well.
+        Make sure the aligner (bowtie2 or bwa), samtools,
+        and bedtools also exist in $PATH.''',
+        epilog='''
+        Citation: Karimzadeh M., Arlidge C., Rostami A.,
+        Lupien M., Bratman S., and Hoffman M. M.
+        Integration of human papillomavirus into the human
+        genome promotes cancer by modifying local
+        chromatin and transcription.''')
     parser.add_argument(
         "hostindex",
         help="Path to host index prefix (either bwa or bowtie2)")
