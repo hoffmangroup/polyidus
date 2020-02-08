@@ -59,7 +59,8 @@ def check_aligner(aligner):
 
 if __name__ == "__main__":
     parser = ArgumentParser(
-        '''Identify viral integration sites in FASTQ files.
+        '''
+        Identify viral integration sites in FASTQ files.
         Requires a host reference genome index,
         a viral reference genome index, and the FASTQ file(s)
         of the experiment to identify the exact

@@ -7,15 +7,15 @@ running Bellerophon from https://www.pmgenomics.ca/hoffmanlab/proj/bellerophon/b
 
 ```
 usage: Identify viral integration sites in FASTQ files.
-        Requires a host reference genome index,
-        a viral reference genome index, and the FASTQ file(s)
-        of the experiment to identify the exact
-        integration sites.
-        Make sure you have generated genome indices for
-        both the host and virus genomes.
-        You can use bwa instead of bowtie2 as well.
-        Make sure the aligner (bowtie2 or bwa), samtools,
-        and bedtools also exist in $PATH.
+       Requires a host reference genome index,
+       a viral reference genome index, and the FASTQ file(s)
+       of the experiment to identify the exact
+       integration sites.
+       Make sure you have generated genome indices for
+       both the host and virus genomes.
+       You can use bwa instead of bowtie2 as well.
+       Make sure the aligner (bowtie2 or bwa), samtools,
+       and bedtools also exist in $PATH.
        [-h] [--fastq [FASTQ [FASTQ ...]]] [--outdir OUTDIR]
        [--aligner {bwa,bowtie2}]
        hostindex viralindex

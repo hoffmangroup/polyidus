@@ -5,7 +5,7 @@ Bellerophon --- Identifying viral integration sites from chimeric sequencing rea
 Introduction
 ------------
 
-** The free Bellerophon software identifies the exact genomic regions for integration of
+**The free Bellerophon software identifies the exact genomic regions for integration of
 a known virus.**
 
 
@@ -51,4 +51,6 @@ You need to run the following commands::
 
 
 If you have any issues with using the software, please post it to GitHub issues and do not contact us directly.
+
+
 If you prefer not to post on issues, you can contact the maintainer with email: mehran.karimzadehreghbati@mail.utoronto.ca
