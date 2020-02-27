@@ -694,7 +694,7 @@ def find_integration(host_bam, viral_bam, paired_end):
     return out_list
 
 
-class bellerophonEngine:
+class polyidusEngine:
     def __init__(self, hostindex, viralindex,
                  fastq, outdir, aligner):
         self.hostindex = hostindex
@@ -709,7 +709,7 @@ class bellerophonEngine:
         self.command_lists = []
 
     def update_log(self):
-        with open("bellerophonCommands.sh", "w") as loglink:
+        with open("polyidusCommands.sh", "w") as loglink:
             for each in self.command_lists:
                 outstr = " ".join([str(val) for val in each]) + "\n"
                 loglink.write(outstr)

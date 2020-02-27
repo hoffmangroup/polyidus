@@ -1,7 +1,7 @@
-# Bellerophon test run
+# Polyidus test run
 
 You can download the example data for
-running Bellerophon from https://www.pmgenomics.ca/hoffmanlab/proj/bellerophon/bellerophon-data-v1.tar.gz .
+running Polyidus from https://www.pmgenomics.ca/hoffmanlab/proj/bellerophon/bellerophon-data-v1.tar.gz .
 
 
 
@@ -41,11 +41,11 @@ promotes cancer by modifying local chromatin and transcription.
 VIRALINDEX=../data/hpv16/hpv16_bowt_ind
 HOSTINDEX=../data/hg38/hg38_bwt2_index
 FASTQFILES=(../data/fastqfiles/SiHa_R1.fastq.gz ../data/fastqfiles/SiHa_R2.fastq.gz)
-OUTDIR=../data/bellerophonOutput
+OUTDIR=../data/polyidusOutput
 mkdir -p $OUTDIR
 echo -e '#!/bin/sh' > testRun.sh
-echo "python bellerophon.py $HOSTINDEX $VIRALINDEX --fastq ${FASTQFILES[@]} --outdir $OUTDIR" >> testRun.sh
-sbatch -c 1 -p hoffmangroup --mem=16G -t 36:00:00 -e bellerophon.ERR -o bellerophon.LOG testRun.sh
+echo "python polyidus.py $HOSTINDEX $VIRALINDEX --fastq ${FASTQFILES[@]} --outdir $OUTDIR" >> testRun.sh
+sbatch -c 1 -p hoffmangroup --mem=16G -t 36:00:00 -e polyidus.ERR -o polyidus.LOG testRun.sh
 ```
 
 # Interpreting the results
