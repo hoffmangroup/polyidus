@@ -50,7 +50,16 @@ You need to run the following commands::
     python polyidus.py ../data/hg38/hg38_bwt2_index ../data/hpv16/hpv16_bowt_ind --fastq ../data/fastqfiles/SiHa_R1.fastq.gz ../data/fastqfiles/SiHa_R2.fastq.gz --outdir ../data/polyidusOutput
 
 
+
+News and updates
+----------------
+
+* April 3rd 2020: V1.1.0 fixed a bug specific to paired-end data.
+
+    
 If you have any issues with using the software, please post it to GitHub issues and do not contact us directly.
 
 
 If you prefer not to post on issues, you can contact the maintainer with email: mehran.karimzadehreghbati@mail.utoronto.ca
+
+

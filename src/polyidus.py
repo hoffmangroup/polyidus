@@ -57,6 +57,23 @@ def check_aligner(aligner):
             "Aligner {} doesn't exist in PATH".format(aligner))
 
 
+def main(hostindex, viralindex, fastq, outdir, aligner):
+    report_memory("initialization")
+    check_indices(hostindex, viralindex)
+    check_aligner(aligner)
+    check_other_programs()
+    os.makedirs(outdir, exist_ok=True)
+    polyidusObj = polyidusEngine(
+        hostindex, viralindex,
+        fastq, outdir, aligner)
+    report_memory("aligning virus and host fastq files")
+    polyidusObj.align_files()
+    polyidusObj.find_approximate_integrations()
+    report_memory("initial investigation of BAM files")
+    polyidusObj.find_exact_integrations()
+    report_memory("saving exact integration sites")
+
+
 if __name__ == "__main__":
     parser = ArgumentParser(
         '''
@@ -97,17 +114,5 @@ if __name__ == "__main__":
         default="bowtie2",
         help="Choose from bwa or bowtie2 (default)")
     args = parser.parse_args()
-    report_memory("initialization")
-    check_indices(args.hostindex, args.viralindex)
-    check_aligner(args.aligner)
-    check_other_programs()
-    os.makedirs(args.outdir, exist_ok=True)
-    polyidusObj = polyidusEngine(
-        args.hostindex, args.viralindex,
-        args.fastq, args.outdir, args.aligner)
-    polyidusObj.align_files()
-    report_memory("aligning virus and host fastq files")
-    polyidusObj.find_approximate_integrations()
-    report_memory("initial investigation of BAM files")
-    polyidusObj.find_exact_integrations()
-    report_memory("saving exact integration sites")
+    main(args.hostindex, args.viralindex, args.fastq,
+         args.outdir, args.aligner)

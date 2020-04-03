@@ -709,7 +709,10 @@ class polyidusEngine:
         self.command_lists = []
 
     def update_log(self):
-        with open("polyidusCommands.sh", "w") as loglink:
+        logpath = os.path.join(
+            self.outdir,
+            "polyidusCommands.sh")
+        with open(logpath, "w") as loglink:
             for each in self.command_lists:
                 outstr = " ".join([str(val) for val in each]) + "\n"
                 loglink.write(outstr)
@@ -780,13 +783,16 @@ class polyidusEngine:
                 self.outdir_viral, "pair2mapped.bam")
             viralbam_bothmapped = os.path.join(
                 self.outdir_viral, "bothPairsMapped.bam")
+            # Part 1. Pair 1 mapped pair 2 unmapped
             job3 = [
                 "samtools", "view", "-bS", "-f",
                 "4", "-F", "264", self.viralbam_temp,
                 "-o", viralbam_temp1]
+            # Part 2. Pair 2 mapped pair 1 unmapped
             job4 = [
                 "samtools", "view", "-bS", "-f", "8", "-F", "260",
                 self.viralbam_temp, "-o", viralbam_temp2]
+            # Pair 3. both pairs mapped
             job5 = [
                 "samtools", "view", "-bS", "-f", "1", "-F", "12",
                 self.viralbam_temp, "-o", viralbam_bothmapped]
@@ -833,8 +839,9 @@ class polyidusEngine:
                 "bowtie2", "-p", "1", "--local",
                 "-x", self.hostindex, "-1",
                 self.fastq_path_1, "-2", self.fastq_path_2]
+            # Version 1.1.0: sort by name! default was position :(
             job2 = [
-                "samtools", "sort", "-o",
+                "samtools", "sort", "-n", "-o",
                 self.hostbam, "-"]
         self.command_lists.append(job1 + ["|"] + job2)
         self.update_log()
