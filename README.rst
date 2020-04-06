@@ -34,12 +34,14 @@ Quick start
 -----------
 
 You can run the following commands to run Polyidus on a small dataset.
+This dataset contains reads extracted from chr13 of SiHa cell line.
+The bowtie2 index within this repository only contains chr13 sequence as well.
 First clone the repository and download the example dataset (123 MB)::
 
     git clone https://github.com/hoffmangroup/polyidus.git
     cd polyidus
-    wget https://www.pmgenomics.ca/hoffmanlab/proj/bellerophon/bellerophon-data-v1.tar.gz
-    tar -xvf bellerophon-data-v1.tar.gz
+    wget https://www.pmgenomics.ca/hoffmanlab/proj/polyidus/polyidus-data-v1.tar.gz
+    tar -xvf polyidus-data-v1.tar.gz
 
 
 Then, make sure you have bowtie2 (v2.2.6), samtools (v1.9), pysam (v0.8.4), and bedtools (v2.26.0) installed.
@@ -48,6 +50,9 @@ You need to run the following commands::
     mkdir data/polyidusOutput
     cd src
     python polyidus.py ../data/hg38/hg38_bwt2_index ../data/hpv16/hpv16_bowt_ind --fastq ../data/fastqfiles/SiHa_R1.fastq.gz ../data/fastqfiles/SiHa_R2.fastq.gz --outdir ../data/polyidusOutput
+
+
+To use Polyidus on your own dataset, you must generate the bowtie2 index on the fasta file of the host genome using _bowtie2-build_.
 
 
 
@@ -61,5 +66,19 @@ If you have any issues with using the software, please post it to GitHub issues 
 
 
 If you prefer not to post on issues, you can contact the maintainer with email: mehran.karimzadehreghbati@mail.utoronto.ca
+
+
+
+FAQ
+---
+
+1. I have tried to run Polyidus on my paired-end RNA-seq data.
+   For some reason, all of the integration sites I could find are on chr13.
+
+
+__Make sure you are using Polyidus version 1.1.0 or later.__
+
+__Make sure you are using index of all of the host genome, not the index provided with the test data.__
+
 
 
