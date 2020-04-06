@@ -52,7 +52,7 @@ You need to run the following commands::
     python polyidus.py ../data/hg38/hg38_bwt2_index ../data/hpv16/hpv16_bowt_ind --fastq ../data/fastqfiles/SiHa_R1.fastq.gz ../data/fastqfiles/SiHa_R2.fastq.gz --outdir ../data/polyidusOutput
 
 
-To use Polyidus on your own dataset, you must generate the bowtie2 index on the fasta file of the host genome using _bowtie2-build_.
+To use Polyidus on your own dataset, you must generate the bowtie2 index on the fasta file of the host genome using *bowtie2-build*.
 
 
 
@@ -76,9 +76,9 @@ FAQ
    For some reason, all of the integration sites I could find are on chr13.
 
 
-__Make sure you are using Polyidus version 1.1.0 or later.__
+**Make sure you are using Polyidus version 1.1.0 or later.**
 
-__Make sure you are using index of all of the host genome, not the index provided with the test data.__
+**Make sure you are using index of all of the host genome, not the index provided with the test data.**
 
 
 
