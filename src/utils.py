@@ -696,7 +696,7 @@ def find_integration(host_bam, viral_bam, paired_end):
 
 class polyidusEngine:
     def __init__(self, hostindex, viralindex,
-                 fastq, outdir, aligner):
+                 fastq, outdir, aligner, virname):
         self.hostindex = hostindex
         self.viralindex = viralindex
         self.fastq = fastq
@@ -705,6 +705,7 @@ class polyidusEngine:
             self.paired = True
         self.outdir = outdir
         self.aligner = aligner
+        self.virname = virname
         self.make_folders()
         self.command_lists = []
 
@@ -757,7 +758,7 @@ class polyidusEngine:
         if len(self.fastq) == 1:
             job1 = [
                 "bowtie2", "-p", "1", "--local", "-x", self.viralindex,
-                "U", self.fastq[0]]
+                "-U", self.fastq[0]]
             job2 = [
                 "samtools",
                 "view", "-bS", "-F", "4", "-o",
@@ -955,7 +956,8 @@ class polyidusEngine:
 
     def find_approximate_integrations(self):
         self.integpath_approximate = os.path.join(
-            self.outdir_results, "HpvIntegrationInfo.tsv")
+            self.outdir_results,
+            "{}IntegrationInfo.tsv".format(self.virname))
         integlist = [["HostFile", "ViralFile", "ChromHost",
                       "PositionHost", "StrandHost",
                       "ChromViral", "PositionViral", "StrandViral",
@@ -980,7 +982,8 @@ class polyidusEngine:
         samplename = pathparts[-3]
         # Make output path
         integpath = os.path.join(
-            self.outdir_results, "exactHpvIntegrations.tsv")
+            self.outdir_results,
+            "exact{}Integrations.tsv".format(self.virname))
         outlink = open(integpath, "w")
         header = ["Chrom", "Start", "End", "IntegrationSite",
                   "ChromVirus", "VirusStart", "VirusEnd",

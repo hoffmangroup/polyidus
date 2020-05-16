@@ -1,7 +1,7 @@
 # Polyidus test run
 
 You can download the example data for
-running Polyidus from https://www.pmgenomics.ca/hoffmanlab/proj/bellerophon/bellerophon-data-v1.tar.gz .
+running Polyidus from https://www.pmgenomics.ca/hoffmanlab/proj/polyidus/polyidus-data-v1.tar.gz .
 
 
 
@@ -17,7 +17,7 @@ usage: Identify viral integration sites in FASTQ files.
        Make sure the aligner (bowtie2 or bwa), samtools,
        and bedtools also exist in $PATH.
        [-h] [--fastq [FASTQ [FASTQ ...]]] [--outdir OUTDIR]
-       [--aligner {bwa,bowtie2}]
+       [--aligner {bwa,bowtie2}] [--virname VIRNAME]
        hostindex viralindex
 
 positional arguments:
@@ -32,6 +32,7 @@ optional arguments:
   --outdir OUTDIR       Path to output folder
   --aligner {bwa,bowtie2}
                         Choose from bwa or bowtie2 (default)
+  --virname VIRNAME     Name of the virus used in file name conventions.
 
 Citation: Karimzadeh M., Arlidge C., Rostami A., Lupien M., Bratman S., and
 Hoffman M. M. Integration of human papillomavirus into the human genome

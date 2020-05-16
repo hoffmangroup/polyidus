@@ -57,7 +57,7 @@ def check_aligner(aligner):
             "Aligner {} doesn't exist in PATH".format(aligner))
 
 
-def main(hostindex, viralindex, fastq, outdir, aligner):
+def main(hostindex, viralindex, fastq, outdir, aligner, virname):
     report_memory("initialization")
     check_indices(hostindex, viralindex)
     check_aligner(aligner)
@@ -65,7 +65,7 @@ def main(hostindex, viralindex, fastq, outdir, aligner):
     os.makedirs(outdir, exist_ok=True)
     polyidusObj = polyidusEngine(
         hostindex, viralindex,
-        fastq, outdir, aligner)
+        fastq, outdir, aligner, virname)
     report_memory("aligning virus and host fastq files")
     polyidusObj.align_files()
     polyidusObj.find_approximate_integrations()
@@ -113,6 +113,10 @@ if __name__ == "__main__":
         choices=["bwa", "bowtie2"],
         default="bowtie2",
         help="Choose from bwa or bowtie2 (default)")
+    parser.add_argument(
+        "--virname",
+        default="Hpv",
+        help="Name of the virus used in file name conventions.")
     args = parser.parse_args()
     main(args.hostindex, args.viralindex, args.fastq,
-         args.outdir, args.aligner)
+         args.outdir, args.aligner, args.virname)
