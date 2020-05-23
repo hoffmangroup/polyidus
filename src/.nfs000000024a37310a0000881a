@@ -86,12 +86,7 @@ def get_host_pos(viralbam, hostbam, chromhost, start_host,
     viral_integs = []
     vir_chroms = []
     new_read_names = []
-    # Suggested by johnstonmj to make sure not exceeding chrom bounds
-    chromsize = hostbam.header.get_reference_length(chromhost)
-    lower_bound = max([0, start_host - 2000])
-    upper_bound = min([start_host + 2000, chromsize])
-    # Iterate through the reads within the bounds
-    for read in bam.fetch(chromhost, lower_bound, upper_bound):
+    for read in bam.fetch(chromhost, start_host - 2000, start_host + 2000):
         if read.qname in readnames or read.qname + ".1" in readnames:
             if len(read.cigar) > 1:
                 read_positions = read.positions

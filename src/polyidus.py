@@ -57,7 +57,8 @@ def check_aligner(aligner):
             "Aligner {} doesn't exist in PATH".format(aligner))
 
 
-def main(hostindex, viralindex, fastq, outdir, aligner, virname):
+def main(hostindex, viralindex, fastq, outdir, aligner,
+         virname, skip_alignment=False):
     report_memory("initialization")
     check_indices(hostindex, viralindex)
     check_aligner(aligner)
@@ -67,7 +68,18 @@ def main(hostindex, viralindex, fastq, outdir, aligner, virname):
         hostindex, viralindex,
         fastq, outdir, aligner, virname)
     report_memory("aligning virus and host fastq files")
-    polyidusObj.align_files()
+    if not skip_alignment:
+        polyidusObj.align_files()
+    else:
+        expectedpaths = [
+            polyidusObj.viralbam_final,
+            polyidusObj.hostbam_sorted,
+            polyidusObj.viralbam]
+        for eachpath in expectedpaths:
+            if not os.path.exists(eachpath):
+                print("Expected {} to exist! {}".format(
+                        eachpath, "Run without --skip-alignment"))
+                raise ValueError("Expected file didn't exist. check logs")
     polyidusObj.find_approximate_integrations()
     report_memory("initial investigation of BAM files")
     polyidusObj.find_exact_integrations()
@@ -117,6 +129,12 @@ if __name__ == "__main__":
         "--virname",
         default="Hpv",
         help="Name of the virus used in file name conventions.")
+    parser.add_argument(
+        "--skip-alignment",
+        action="store_true",
+        help="If specified, will assume the script has run once before "
+        "and the expected alignment files exist and will not attempt "
+        "to re-align the files.")
     args = parser.parse_args()
     main(args.hostindex, args.viralindex, args.fastq,
-         args.outdir, args.aligner, args.virname)
+         args.outdir, args.aligner, args.virname, args.skip_alignment)
