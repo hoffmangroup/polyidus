@@ -33,6 +33,9 @@ optional arguments:
   --aligner {bwa,bowtie2}
                         Choose from bwa or bowtie2 (default)
   --virname VIRNAME     Name of the virus used in file name conventions.
+  --skip-alignment      If specified, will assume the script has run once
+                        before and the expected alignment files exist and will
+                        not attempt to re-align the files.
 
 Citation: Karimzadeh M., Arlidge C., Rostami A., Lupien M., Bratman S., and
 Hoffman M. M. Integration of human papillomavirus into the human genome

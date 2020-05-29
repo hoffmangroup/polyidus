@@ -73,8 +73,7 @@ def main(hostindex, viralindex, fastq, outdir, aligner,
     else:
         expectedpaths = [
             polyidusObj.viralbam_final,
-            polyidusObj.hostbam_sorted,
-            polyidusObj.viralbam]
+            polyidusObj.hostbam_sorted]
         for eachpath in expectedpaths:
             if not os.path.exists(eachpath):
                 print("Expected {} to exist! {}".format(

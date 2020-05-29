@@ -87,7 +87,7 @@ def get_host_pos(viralbam, hostbam, chromhost, start_host,
     vir_chroms = []
     new_read_names = []
     # Suggested by johnstonmj to make sure not exceeding chrom bounds
-    chromsize = hostbam.header.get_reference_length(chromhost)
+    chromsize = bam.header.get_reference_length(chromhost)
     lower_bound = max([0, start_host - 2000])
     upper_bound = min([start_host + 2000, chromsize])
     # Iterate through the reads within the bounds
@@ -711,6 +711,7 @@ class polyidusEngine:
         self.outdir = outdir
         self.aligner = aligner
         self.virname = virname
+        self.make_folders()
         self.viralbam_temp = os.path.join(
             self.outdir_viral, "virusAligned-temp.bam")
         self.viralbam_final = os.path.join(
@@ -718,7 +719,6 @@ class polyidusEngine:
         self.hostbam = os.path.join(self.outdir_host, "hostAligned.bam")
         self.hostbam_sorted = os.path.join(
             self.outdir_host, "hostAligned_sorted.bam")
-        self.make_folders()
         self.command_lists = []
 
     def update_log(self):
