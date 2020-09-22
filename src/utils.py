@@ -86,6 +86,7 @@ def get_host_pos(viralbam, hostbam, chromhost, start_host,
     viral_integs = []
     vir_chroms = []
     new_read_names = []
+    dict_readnames = {}
     # Suggested by johnstonmj to make sure not exceeding chrom bounds
     chromsize = bam.header.get_reference_length(chromhost)
     lower_bound = max([0, start_host - 2000])
@@ -122,6 +123,10 @@ def get_host_pos(viralbam, hostbam, chromhost, start_host,
                             adst = adend - window
                         dict_supports[host_integ] = \
                             dict_supports.get(host_integ, 0) + 1
+                        # Keep track of read names used for each integration
+                        list_curreadnames = dict_readnames.get(host_integ, [])
+                        list_curreadnames.append(read.qname)
+                        dict_readnames[host_integ] = list_curreadnames
                         if host_integ not in host_integs:
                             host_integs.append(host_integ)
                             end_hosts.append(adend)
@@ -146,7 +151,8 @@ def get_host_pos(viralbam, hostbam, chromhost, start_host,
                 "IntegrationHosts": host_integs,
                 "IntegrationVirus": viral_integs,
                 "NumberReads": [dict_supports.get(each, 0)
-                                for each in host_integs]}
+                                for each in host_integs],
+                "ReadNameDict": dict_readnames}
     return dict_out
 
 
@@ -982,11 +988,21 @@ class polyidusEngine:
         integpath = os.path.join(
             self.outdir_results,
             "exact{}Integrations.tsv".format(self.virname))
+        integpathbed = os.path.join(
+            self.outdir_results,
+            "exact{}Integrations.bed".format(self.virname))
         outlink = open(integpath, "w")
+        bedlink = open(integpathbed, "w")
+        headerbed = ["chrom", "chromStart", "chromEnd",
+                     "name", "score", "strand",
+                     "virusStart", "virusEnd",
+                     "virusStrand", "numReads", "bioSample"]
+        bedlink.write("\t".join(headerbed) + "\n")
         header = ["Chrom", "Start", "End", "IntegrationSite",
                   "ChromVirus", "VirusStart", "VirusEnd",
                   "ViralIntegrationSite",
-                  "NumberOfSupportingReads", "SampleName"]
+                  "NumberOfSupportingFragments", "SampleName",
+                  "FragmentName"]
         keys = ["ChromHost", "Starts", "Ends", "IntegrationHosts",
                 "ChromVirus", "VirusStarts", "VirusEnds",
                 "IntegrationVirus", "NumberReads"]
@@ -1010,6 +1026,29 @@ class polyidusEngine:
                         for key in keys:
                             adlist.append(str(dictposes[key][j]))
                         adlist.append(samplename)
+                        fragnames = dictposes[
+                            "ReadNameDict"][dictposes["IntegrationHosts"][j]]
+                        adlist.append(", ".join(fragnames))
                         print("\t".join(adlist))
                         outlink.write("\t".join(adlist) + "\n")
+                        strand_host = "+"
+                        strand_virus = "+"
+                        if dictposes["Starts"][j] > \
+                                dictposes["IntegrationHosts"][j]:
+                            strand_host = "-"
+                        if dictposes["VirusStarts"][j] > \
+                                dictposes["IntegrationVirus"][j]:
+                            strand_virus = "-"
+                        adlistbed = [dictposes["ChromHost"][j],
+                                     dictposes["IntegrationHosts"][j] - 1,
+                                     dictposes["IntegrationHosts"][j],
+                                     dictposes["ChromVirus"][j], "0",
+                                     strand_host,
+                                     dictposes["IntegrationVirus"][j] - 1,
+                                     dictposes["IntegrationVirus"][j],
+                                     strand_virus,
+                                     dictposes["NumberReads"][j], samplename]
+                        adlistbed = [str(each) for each in adlistbed]
+                        bedlink.write("\t".join(adlistbed) + "\n")
         outlink.close()
+        bedlink.close()

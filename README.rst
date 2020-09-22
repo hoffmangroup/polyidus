@@ -44,7 +44,7 @@ First clone the repository and download the example dataset (123 MB)::
     tar -xvf polyidus-data-v1.tar.gz
 
 
-Then, make sure you have bowtie2 (v2.2.6), samtools (v1.9), pysam (v0.8.4), and bedtools (v2.26.0) installed.
+Then, make sure you have bowtie2 (v2.2.6), samtools (v1.9), pysam (v0.15.0), and bedtools (v2.26.0) installed.
 Also, Polyidus also uses python packages pandas (v0.22.0), numpy (1.18.1), and psutil (v5.4.3).
 You need to run the following commands::
 
