@@ -60,6 +60,10 @@ To use Polyidus on your own dataset, you must generate the bowtie2 index on the 
 News and updates
 ----------------
 
+* June 2023: The manuscript introducing Polyidus is now available on Genome Biology:
+
+    * Karimzadeh, M., Arlidge, C., Rostami, A. et al. Human papillomavirus integration transforms chromatin to drive oncogenesis. Genome Biol 24, 142 (2023). https://doi.org/10.1186/s13059-023-02926-9
+
 * April 3rd 2020: V1.1.0 fixed a bug specific to paired-end data.
 
     
@@ -80,6 +84,7 @@ FAQ
 **Make sure you are using Polyidus version 1.1.0 or later.**
 
 **Make sure you are using index of all of the host genome, not the index provided with the test data.**
+
 
 
 
